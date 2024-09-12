@@ -1,37 +1,34 @@
 <script>
 // 1) Importazione del componente 
-import AppTitle from './components/AppTitle.vue'
+import AppHeader from './components/AppHeader.vue';
+import AppMain from './components/AppMain.vue';
+
 
   export default {
   data() {
     return { 
-        message: 'La mia prima app con Vite!'
     }
   },
   // 2) Dichiarizone del componente
   components: {
-    AppTitle
+    AppHeader,
+    AppMain
   },
 }
 </script>
 
 <template>
     <!-- Utilizzo del componente  -->
-     <AppTitle />
-  <div class="tittle">
-    <h2>
-      {{ message }}
-    </h2>
-  </div>
+     <AppHeader />
+
+     <AppMain />
+
 
 </template>
 
-<style scoped>
-.tittle {
-  text-align: center;
-}
+<style lang="scss" >
+@use 'assets/scss/main.scss' as * ;
 
-.tittle > h2 {
-  color: lightcoral;
-}
+/* // Import all of Bootstrap's CSS */
+@import "bootstrap/scss/bootstrap";
 </style>
