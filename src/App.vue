@@ -2,11 +2,14 @@
 // 1) Importazione del componente 
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
+import axios from 'axios';
+
 
 
   export default {
   data() {
     return { 
+      allCardYugioh: []
     }
   },
   // 2) Dichiarizone del componente
@@ -14,6 +17,20 @@ import AppMain from './components/AppMain.vue';
     AppHeader,
     AppMain
   },
+  
+  created() {
+    axios
+        .get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0')
+        .then((res) => {
+            console.log(this.res)
+            
+            
+            this.allCardYugioh = res.data.data;
+            console.log(this.allCardYugioh)
+        }
+
+        )
+  }
 }
 </script>
 
@@ -21,7 +38,7 @@ import AppMain from './components/AppMain.vue';
     <!-- Utilizzo del componente  -->
      <AppHeader />
 
-     <AppMain />
+     <AppMain :cards = "allCardYugioh" />
 
 
 </template>

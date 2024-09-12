@@ -1,22 +1,16 @@
 <script>
-import axios from 'axios';
+import singleCard from './singleCard.vue';
 
   export default {
   data() {
     return {
-        allCardYugioh: []
     }
   },
-  created() {
-    axios
-        .get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0')
-        .then((res) => {
-            
-            this.allCardYugioh = res.data.data;
-            console.log(this.allCardYugioh)
-        }
-
-        )
+  components: {
+    singleCard
+  },
+  props: {
+    cards: Array
   }
 }
 </script>
@@ -41,12 +35,13 @@ import axios from 'axios';
         <main class="container bg-white p-5">
             
             <div class="row bg-black text-white ps-3 p-3 m-0">
-                <span class="ps-0">found {{ allCardYugioh.length }} cards</span>
+                <span class="ps-0">found {{ cards.length }} cards</span>
             </div>
 
             <div class="row">
-                <div v-for="(cardYu, index) in allCardYugioh" :key="index" class="col-3 pb-4">
-                    <div class="cardContainer h-100">
+                <div v-for="(cardYu, index) in cards" :key="index" class="col-3 pb-4">
+                    <single-card :cardYu = "cardYu" />
+                    <!-- <div class="cardContainer h-100">
                         <div>
                             <img :src="cardYu.card_images[0].image_url" :alt="cardYu.name">
                         </div>
@@ -61,7 +56,7 @@ import axios from 'axios';
                             
                         </div>
 
-                    </div>
+                    </div> -->
                 </div>
             </div>
             
