@@ -34,7 +34,7 @@ methods: {
             console.log(this.store.allCardYugioh)
         })
         .catch((err) => {
-
+            this.store.allCardYugioh = []
         })
 }
 },
@@ -69,6 +69,7 @@ props: {
                         
             {{ searchTypeCard }}
             <select v-model="searchTypeCard" @click="searcheForArchetype()" id="cars" class="py-2 pe-5">
+                <option value="">Select</option>
                 <option   v-for="(type, index) in allTypeCards" :key="index" 
                 :value="type.archetype_name">
                 {{ type.archetype_name }}
@@ -128,6 +129,7 @@ props: {
 <style lang="scss" scoped>
 .backgroundMain {
   background-color: #d48f38;
+  min-height: 100vh;
 }
 
 .cardContainer {
