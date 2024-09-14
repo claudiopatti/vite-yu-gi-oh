@@ -1,9 +1,14 @@
 <script>
 import singleCard from './singleCard.vue';
+import axios from 'axios';
+
 
   export default {
   data() {
     return {
+        
+        allTypeCards: [],
+       
     }
   },
   components: {
@@ -11,14 +16,38 @@ import singleCard from './singleCard.vue';
   },
   props: {
     cards: Array
-  }
+  },
+  
+  created() {
+    axios
+        .get('https://db.ygoprodeck.com/api/v7/archetypes.php')
+        .then((risultato) => {
+            
+            
+            this.allTypeCards = risultato.data;
+            console.log(risultato.data)
+            console.log(this.allTypeCards[0].archetype_name)
+            
+        }
+
+        )
+  },
 }
 </script>
 
 <template>
   <div class="backgroundMain ">
-        <header class="container">
-        <div class="dropdown py-4 px-2">
+        <header class="container p-3">
+                        
+            <select id="cars" class="py-2 pe-5">
+                <option value="">Select</option>
+                <option v-for="(type, index) in allTypeCards" :key="index" 
+                :value="type.archetype_name">
+                {{ type.archetype_name }}
+                </option>
+            </select>
+            
+        <!-- <div class="dropdown py-4 px-2">
             <a class="btn bg-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="pe-5">Alien</span>
             </a>
@@ -26,7 +55,7 @@ import singleCard from './singleCard.vue';
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Action</a></li>
             </ul>
-            </div>
+            </div> -->
 
         </header>
 

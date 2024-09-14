@@ -1,16 +1,14 @@
 <script>
 
-
   export default {
   data() {
     return {
-       
     }
   },
 
   props: {
     cardYu: Object
-  }
+  },
 }
 </script>
 
