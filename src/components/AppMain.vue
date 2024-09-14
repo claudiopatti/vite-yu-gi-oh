@@ -1,4 +1,5 @@
 <script>
+import { store } from '../store';
 import singleCard from './singleCard.vue';
 import axios from 'axios';
 
@@ -6,18 +7,45 @@ import axios from 'axios';
   export default {
   data() {
     return {
-        
+        store,
         allTypeCards: [],
+        searchTypeCard: '',
        
     }
-  },
-  components: {
+},
+
+methods: {
+    searcheForArchetype() {
+        console.log('cliccato')
+        // if (this.searchTypeCard != '') {
+            
+        // }
+        axios
+        .get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0' , {
+            params: {
+                archetype: this.searchTypeCard,
+            }
+        })
+        .then((res) => {
+            console.log(res)
+            
+            
+            this.store.allCardYugioh = res.data.data;
+            console.log(this.store.allCardYugioh)
+        })
+        .catch((err) => {
+
+        })
+}
+},
+
+components: {
     singleCard
-  },
-  props: {
-    cards: Array
-  },
-  
+    
+},
+props: {
+  cards: Array
+},
   created() {
     axios
         .get('https://db.ygoprodeck.com/api/v7/archetypes.php')
@@ -39,9 +67,9 @@ import axios from 'axios';
   <div class="backgroundMain ">
         <header class="container p-3">
                         
-            <select id="cars" class="py-2 pe-5">
-                <option value="">Select</option>
-                <option v-for="(type, index) in allTypeCards" :key="index" 
+            {{ searchTypeCard }}
+            <select v-model="searchTypeCard" @click="searcheForArchetype()" id="cars" class="py-2 pe-5">
+                <option   v-for="(type, index) in allTypeCards" :key="index" 
                 :value="type.archetype_name">
                 {{ type.archetype_name }}
                 </option>
@@ -64,11 +92,11 @@ import axios from 'axios';
         <main class="container bg-white p-5">
             
             <div class="row bg-black text-white ps-3 p-3 m-0">
-                <span class="ps-0">found {{ cards.length }} cards</span>
+                <span class="ps-0">found {{ store.allCardYugioh.length }} cards</span>
             </div>
 
             <div class="row">
-                <div v-for="(cardYu, index) in cards" :key="index" class="col-3 pb-4">
+                <div v-for="(cardYu, index) in store.allCardYugioh" :key="index" class="col-3 pb-4">
                     <single-card :cardYu = "cardYu" />
                     <!-- <div class="cardContainer h-100">
                         <div>

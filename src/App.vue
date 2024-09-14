@@ -3,12 +3,14 @@
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import axios from 'axios';
+import { store } from './store.js'
 
 
 
   export default {
   data() {
     return { 
+      store: store,
       allCardYugioh: []
     }
   },
@@ -25,7 +27,7 @@ import axios from 'axios';
             console.log(res)
             
             
-            this.allCardYugioh = res.data.data;
+            this.store.allCardYugioh = res.data.data;
             console.log(this.allCardYugioh)
         }
 
@@ -38,7 +40,7 @@ import axios from 'axios';
     <!-- Utilizzo del componente  -->
      <AppHeader />
 
-     <AppMain :cards = "allCardYugioh" />
+     <AppMain  />
 
 
 </template>
