@@ -67,7 +67,7 @@ props: {
   <div class="backgroundMain ">
         <header class="container p-3">
                         
-            {{ searchTypeCard }}
+            <!-- {{ searchTypeCard }} -->
             <select v-model="searchTypeCard" @click="searcheForArchetype()" id="cars" class="py-2 pe-5">
                 <option value="">Select</option>
                 <option   v-for="(type, index) in allTypeCards" :key="index" 
